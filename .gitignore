@@ -1,0 +1,8 @@
+build/
+__pycache__/
+*.pyc
+*.vcd
+*.fst
+*.bin
+*.hex
+project/*_tb

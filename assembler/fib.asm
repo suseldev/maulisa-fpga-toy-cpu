@@ -1,0 +1,441 @@
+    MOVI R0, 0
+    MOVI R1, 1
+    MOVI R6, 0xFF
+    STORE R6, 0xFFF0
+    STORE R6, 0xFFF1
+    STORE R6, 0xFFF2
+    STORE R6, 0xFFF3
+    STORE R6, 0xFFF4
+
+MAIN:
+    MOV R5, R1
+    MOVI R7, 0
+    MOVI R8, 0
+    MOVI R9, 0
+    MOVI R10, 0
+    MOVI R11, 0
+
+DIGIT_10000:
+    CMPI R5, 10000
+    JC DIGIT_1000
+    SUBI R5, 10000
+    ADDI R11, 1
+    JMP DIGIT_10000
+
+DIGIT_1000:
+    CMPI R5, 1000
+    JC DIGIT_100
+    SUBI R5, 1000
+    ADDI R10, 1
+    JMP DIGIT_1000
+
+DIGIT_100:
+    CMPI R5, 100
+    JC DIGIT_10
+    SUBI R5, 100
+    ADDI R9, 1
+    JMP DIGIT_100
+
+DIGIT_10:
+    CMPI R5, 10
+    JC DIGIT_1
+    SUBI R5, 10
+    ADDI R8, 1
+    JMP DIGIT_10
+
+DIGIT_1:
+    MOV R7, R5
+    MOV R5, R7
+    JMP DECODE_HEX0
+
+RET_HEX0:
+    MOV R5, R8
+    JMP DECODE_HEX1
+
+RET_HEX1:
+    MOV R5, R9
+    JMP DECODE_HEX2
+
+RET_HEX2:
+    MOV R5, R10
+    JMP DECODE_HEX3
+
+RET_HEX3:
+    MOV R5, R11
+    JMP DECODE_HEX4
+
+RET_HEX4:
+    MOVI R3, 0xFFFF
+    MOVI R4, 75
+
+DELAY_LOOP1:
+    SUBI R3, 1
+    JNZ DELAY_LOOP1
+    MOVI R3, 0xFFFF
+    SUBI R4, 1
+    JNZ DELAY_LOOP1
+    MOV R2, R1
+    ADD R2, R0
+    MOV R0, R1
+    MOV R1, R2
+    JMP MAIN
+
+DECODE_HEX0:
+    CMPI R5, 0
+    JZ H0_0
+    CMPI R5, 1
+    JZ H0_1
+    CMPI R5, 2
+    JZ H0_2
+    CMPI R5, 3
+    JZ H0_3
+    CMPI R5, 4
+    JZ H0_4
+    CMPI R5, 5
+    JZ H0_5
+    CMPI R5, 6
+    JZ H0_6
+    CMPI R5, 7
+    JZ H0_7
+    CMPI R5, 8
+    JZ H0_8
+    CMPI R5, 9
+    JZ H0_9
+
+H0_0:
+    MOVI R6, 0xC0
+    STORE R6, 0xFFF0
+    JMP RET_HEX0
+
+H0_1:
+    MOVI R6, 0xF9
+    STORE R6, 0xFFF0
+    JMP RET_HEX0
+
+H0_2:
+    MOVI R6, 0xA4
+    STORE R6, 0xFFF0
+    JMP RET_HEX0
+
+H0_3:
+    MOVI R6, 0xB0
+    STORE R6, 0xFFF0
+    JMP RET_HEX0
+
+H0_4:
+    MOVI R6, 0x99
+    STORE R6, 0xFFF0
+    JMP RET_HEX0
+
+H0_5:
+    MOVI R6, 0x92
+    STORE R6, 0xFFF0
+    JMP RET_HEX0
+
+H0_6:
+    MOVI R6, 0x82
+    STORE R6, 0xFFF0
+    JMP RET_HEX0
+
+H0_7:
+    MOVI R6, 0xF8
+    STORE R6, 0xFFF0
+    JMP RET_HEX0
+
+H0_8:
+    MOVI R6, 0x80
+    STORE R6, 0xFFF0
+    JMP RET_HEX0
+
+H0_9:
+    MOVI R6, 0x90
+    STORE R6, 0xFFF0
+    JMP RET_HEX0
+
+DECODE_HEX1:
+    CMPI R5, 0
+    JZ H1_0
+    CMPI R5, 1
+    JZ H1_1
+    CMPI R5, 2
+    JZ H1_2
+    CMPI R5, 3
+    JZ H1_3
+    CMPI R5, 4
+    JZ H1_4
+    CMPI R5, 5
+    JZ H1_5
+    CMPI R5, 6
+    JZ H1_6
+    CMPI R5, 7
+    JZ H1_7
+    CMPI R5, 8
+    JZ H1_8
+    CMPI R5, 9
+    JZ H1_9
+
+H1_0:
+    MOVI R6, 0xC0
+    STORE R6, 0xFFF1
+    JMP RET_HEX1
+
+H1_1:
+    MOVI R6, 0xF9
+    STORE R6, 0xFFF1
+    JMP RET_HEX1
+
+H1_2:
+    MOVI R6, 0xA4
+    STORE R6, 0xFFF1
+    JMP RET_HEX1
+
+H1_3:
+    MOVI R6, 0xB0
+    STORE R6, 0xFFF1
+    JMP RET_HEX1
+
+H1_4:
+    MOVI R6, 0x99
+    STORE R6, 0xFFF1
+    JMP RET_HEX1
+
+H1_5:
+    MOVI R6, 0x92
+    STORE R6, 0xFFF1
+    JMP RET_HEX1
+
+H1_6:
+    MOVI R6, 0x82
+    STORE R6, 0xFFF1
+    JMP RET_HEX1
+
+H1_7:
+    MOVI R6, 0xF8
+    STORE R6, 0xFFF1
+    JMP RET_HEX1
+
+H1_8:
+    MOVI R6, 0x80
+    STORE R6, 0xFFF1
+    JMP RET_HEX1
+
+H1_9:
+    MOVI R6, 0x90
+    STORE R6, 0xFFF1
+    JMP RET_HEX1
+
+DECODE_HEX2:
+    CMPI R5, 0
+    JZ H2_0
+    CMPI R5, 1
+    JZ H2_1
+    CMPI R5, 2
+    JZ H2_2
+    CMPI R5, 3
+    JZ H2_3
+    CMPI R5, 4
+    JZ H2_4
+    CMPI R5, 5
+    JZ H2_5
+    CMPI R5, 6
+    JZ H2_6
+    CMPI R5, 7
+    JZ H2_7
+    CMPI R5, 8
+    JZ H2_8
+    CMPI R5, 9
+    JZ H2_9
+
+H2_0:
+    MOVI R6, 0xC0
+    STORE R6, 0xFFF2
+    JMP RET_HEX2
+
+H2_1:
+    MOVI R6, 0xF9
+    STORE R6, 0xFFF2
+    JMP RET_HEX2
+
+H2_2:
+    MOVI R6, 0xA4
+    STORE R6, 0xFFF2
+    JMP RET_HEX2
+
+H2_3:
+    MOVI R6, 0xB0
+    STORE R6, 0xFFF2
+    JMP RET_HEX2
+
+H2_4:
+    MOVI R6, 0x99
+    STORE R6, 0xFFF2
+    JMP RET_HEX2
+
+H2_5:
+    MOVI R6, 0x92
+    STORE R6, 0xFFF2
+    JMP RET_HEX2
+
+H2_6:
+    MOVI R6, 0x82
+    STORE R6, 0xFFF2
+    JMP RET_HEX2
+
+H2_7:
+    MOVI R6, 0xF8
+    STORE R6, 0xFFF2
+    JMP RET_HEX2
+
+H2_8:
+    MOVI R6, 0x80
+    STORE R6, 0xFFF2
+    JMP RET_HEX2
+
+H2_9:
+    MOVI R6, 0x90
+    STORE R6, 0xFFF2
+    JMP RET_HEX2
+
+DECODE_HEX3:
+    CMPI R5, 0
+    JZ H3_0
+    CMPI R5, 1
+    JZ H3_1
+    CMPI R5, 2
+    JZ H3_2
+    CMPI R5, 3
+    JZ H3_3
+    CMPI R5, 4
+    JZ H3_4
+    CMPI R5, 5
+    JZ H3_5
+    CMPI R5, 6
+    JZ H3_6
+    CMPI R5, 7
+    JZ H3_7
+    CMPI R5, 8
+    JZ H3_8
+    CMPI R5, 9
+    JZ H3_9
+
+H3_0:
+    MOVI R6, 0xC0
+    STORE R6, 0xFFF3
+    JMP RET_HEX3
+
+H3_1:
+    MOVI R6, 0xF9
+    STORE R6, 0xFFF3
+    JMP RET_HEX3
+
+H3_2:
+    MOVI R6, 0xA4
+    STORE R6, 0xFFF3
+    JMP RET_HEX3
+
+H3_3:
+    MOVI R6, 0xB0
+    STORE R6, 0xFFF3
+    JMP RET_HEX3
+
+H3_4:
+    MOVI R6, 0x99
+    STORE R6, 0xFFF3
+    JMP RET_HEX3
+
+H3_5:
+    MOVI R6, 0x92
+    STORE R6, 0xFFF3
+    JMP RET_HEX3
+
+H3_6:
+    MOVI R6, 0x82
+    STORE R6, 0xFFF3
+    JMP RET_HEX3
+
+H3_7:
+    MOVI R6, 0xF8
+    STORE R6, 0xFFF3
+    JMP RET_HEX3
+
+H3_8:
+    MOVI R6, 0x80
+    STORE R6, 0xFFF3
+    JMP RET_HEX3
+
+H3_9:
+    MOVI R6, 0x90
+    STORE R6, 0xFFF3
+    JMP RET_HEX3
+
+DECODE_HEX4:
+    CMPI R5, 0
+    JZ H4_0
+    CMPI R5, 1
+    JZ H4_1
+    CMPI R5, 2
+    JZ H4_2
+    CMPI R5, 3
+    JZ H4_3
+    CMPI R5, 4
+    JZ H4_4
+    CMPI R5, 5
+    JZ H4_5
+    CMPI R5, 6
+    JZ H4_6
+    CMPI R5, 7
+    JZ H4_7
+    CMPI R5, 8
+    JZ H4_8
+    CMPI R5, 9
+    JZ H4_9
+
+H4_0:
+    MOVI R6, 0xC0
+    STORE R6, 0xFFF4
+    JMP RET_HEX4
+
+H4_1:
+    MOVI R6, 0xF9
+    STORE R6, 0xFFF4
+    JMP RET_HEX4
+
+H4_2:
+    MOVI R6, 0xA4
+    STORE R6, 0xFFF4
+    JMP RET_HEX4
+
+H4_3:
+    MOVI R6, 0xB0
+    STORE R6, 0xFFF4
+    JMP RET_HEX4
+
+H4_4:
+    MOVI R6, 0x99
+    STORE R6, 0xFFF4
+    JMP RET_HEX4
+
+H4_5:
+    MOVI R6, 0x92
+    STORE R6, 0xFFF4
+    JMP RET_HEX4
+
+H4_6:
+    MOVI R6, 0x82
+    STORE R6, 0xFFF4
+    JMP RET_HEX4
+
+H4_7:
+    MOVI R6, 0xF8
+    STORE R6, 0xFFF4
+    JMP RET_HEX4
+
+H4_8:
+    MOVI R6, 0x80
+    STORE R6, 0xFFF4
+    JMP RET_HEX4
+
+H4_9:
+    MOVI R6, 0x90
+    STORE R6, 0xFFF4
+    JMP RET_HEX4
